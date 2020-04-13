@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Registro Persona</title>
+        
+        <!--bootstrap4 -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+        crossorigin="anonymous">
+    </head>
+
+
+    <body>
+        
+        <nav class="navbar navbar-darck bg-dark mb-4">
+            <a href="/" class="navbar-brand">Crud Persona</a>
+        </nav>
+       <div class="container">
+           <div class="row">
+           <!--from-->
+           <div class="col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/add" method="POST"><!--le mando la accion al boton registrar -->
+                            <div class="from-group">
+                                <input type="text" name="idPersonas" placeholder="ingrese su Cedula" class="from-control">
+                            </div>
+                            <div class="from-group">
+                                <input type="text" name="Nombre" placeholder="ingrese su nombre" class="from-control">
+                            </div>
+                            <div class="from-group">
+                                <input type="text" name="Apellido" placeholder="ingrese su Apellido" class="from-control">
+                            </div>
+                            <button type="submit" class="btn btn-primary btm-block" >Registrar Persona</button>
+
+                        </form>
+                    </div>
+
+                </div>
+           </div>
+           <!--lista -->
+           <div class="col-md-7">
+               <table class="table table-borderd table-hoverr">
+                   <thead>
+                       <tr>
+                           <th>Cedula</th>
+                           <th>Nombre</th>
+                           <th>Apellido</th>
+                           <th>Operaciones</th>
+                       </tr>
+                   </thead>
+               </table>
+               <body>
+
+               </body>
+            </div>
+           </div>
+       </div>
+
+    </body>
+</html>
