@@ -4,7 +4,7 @@ var persona= require('../models/Personas'),
     rutas= express.Router();
 
     //creo rutas atraves de metodos get y post
-rutas.post('/',(req , res)=>{
+rutas.get('/',(req , res)=>{
     persona.find({},(err, docs)=>{
         if(err){
             console.error(err)
@@ -36,7 +36,7 @@ rutas.post('/',(req , res)=>{
         }
         res.status(200).json(docs)
         //metodo de editar
-    }).pos('/editar',(req, res)=>{
+    }).post('/editar',(req, res)=>{
         var body = req.body;
         persona.update({idPersona: body.idPersona},
             {
@@ -53,6 +53,18 @@ rutas.post('/',(req , res)=>{
             })
 
     })
+}).post('/Login', (req,res )=>{
+    const {idPersona,Nombre}=req.body;
+    persona.find({
+        idPersona:idPersona,
+        Nombre:Nombre
+    },(err, docs)=>{
+        if(err){
+            console.error(err)
+            throw err;
+        }
+        res.status(200).json(docs);
+    }) 
 })
 
 module.exports= rutas;

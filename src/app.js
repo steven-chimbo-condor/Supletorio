@@ -7,7 +7,7 @@ var connection = require('./ConexcionDB/conexionBD');
 const app= express();//inicializo express
 const rutas = require('../src/routes/rutas')
 
-
+app.use(cors());
 
 //configraciones
 app.set('port', process.env.PORT || 3000);
@@ -15,16 +15,17 @@ app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname , 'views'));
 app.set('view engine', 'ejs' );
 //middlewares
+
 app.use(body_parser.json());
 
 app.use(body_parser.urlencoded({extended:false}));
 
-app.use(cors());
+
 
 app.use(morgan('dev'));
 //usamos las rutas
 
-app.use('/', rutas);
+app.use( rutas);
 //vistas
 app.set('views', path.join(__dirname,'views'));
 app.set('views engine', 'ejs');
