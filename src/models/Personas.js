@@ -3,9 +3,9 @@ var mongoose = require('mongoose');
 
 var valorSchema = new Schemas({
     //creo el esquema 
-    idPersona:{type:Number,trim:true},
-    Nombre:{type:String,trim:true},
-    Apellido:{type:String,trim:true},
+    Cedula:{type:String,trim:true},
+    Contrasena:{type:String,trim:true},
+    
 
 })
 //creo una variable y le asigno el esquema

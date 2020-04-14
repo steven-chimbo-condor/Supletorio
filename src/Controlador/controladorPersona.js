@@ -17,9 +17,9 @@ rutas.get('/',(req , res)=>{
     var body= req.body;
     persona.insertMany({
         //inserto los datos a bd
-        idPersona: body.idPersona,
-        Nombre: body.Nombre,
-        Apellido: body.Apellido,
+        Cedula: body.Cedula,
+        Contrasena: body.Contrasena,
+        
     },(err,rest)=>{
         if(err){
             console.error(err)
@@ -29,7 +29,7 @@ rutas.get('/',(req , res)=>{
     })
     //metodo para eliminar
 }).post('/eliminar', (req, res)=>{
-    persona.remove({idPersona: req.body.idPersona},(req,res)=>{
+    persona.remove({Cedula: req.body.Cedula},(req,res)=>{
         if(err){
             console.error(err)
             throw err;
@@ -38,11 +38,11 @@ rutas.get('/',(req , res)=>{
         //metodo de editar
     }).post('/editar',(req, res)=>{
         var body = req.body;
-        persona.update({idPersona: body.idPersona},
+        persona.update({Cedula: body.Cedula},
             {
                 $set:{
-                    Nombre:body.Nombre,
-                    Apellido: body.Apellido,
+                    Contrasena:body.Contrasena,
+                    
                 }
             },(err,rest)=>{
                 if(err){
@@ -54,10 +54,10 @@ rutas.get('/',(req , res)=>{
 
     })
 }).post('/Login', (req,res )=>{
-    const {idPersona,Nombre}=req.body;
+    const {Cedula,Contrasena}=req.body;
     persona.find({
-        idPersona:idPersona,
-        Nombre:Nombre
+        Cedula:Cedula,
+        Contrasena:Contrasena
     },(err, docs)=>{
         if(err){
             console.error(err)
