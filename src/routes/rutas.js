@@ -1,15 +1,18 @@
 const express = require('express'),
     rutas= express.Router(),
-    persona= require('../Controlador/controladorPersona');
+
+    Login= require('../Controlador/controladorLogin');
+
+    Cliente= require('../Controlador/controladorCliente');
+
+    Vehiculo= require('../Controlador/controladorvehiculo');
 
 
-const pregunta=require('../models/Personas');
-    
-rutas.use('/obtener',persona);
+rutas.use('/obtener',Login);
 
+rutas.use('/mostrar',Cliente);
 
-
-
+rutas.use('/ver',Vehiculo);
 
 
 module.exports=rutas;

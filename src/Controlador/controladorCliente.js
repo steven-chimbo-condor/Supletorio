@@ -1,11 +1,11 @@
 //doy dos puntos par salir de carpeta e ingresar a otra 
-var persona= require('../models/Personas'),
+var usuario= require('../models/cliente'),
     express = require('express'),
     rutas= express.Router();
 
     //creo rutas atraves de metodos get y post
 rutas.get('/',(req , res)=>{
-    persona.find({},(err, docs)=>{
+    usuario.find({},(err, docs)=>{
         if(err){
             console.error(err)
             throw err;
@@ -15,11 +15,14 @@ rutas.get('/',(req , res)=>{
 
 }).post('/crear',(req , res)=>{
     var body= req.body;
-    persona.insertMany({
+    usuario.insertMany({
         //inserto los datos a bd
+        Nombre: body.Nombre,
+        Apellido: body.Apellido,
         Cedula: body.Cedula,
-        Contrasena: body.Contrasena,
-        
+        Edad: body.Edad,
+        Telefono: body.Telefono,
+        Direccion: body.Direccion,
     },(err,rest)=>{
         if(err){
             console.error(err)
@@ -29,7 +32,7 @@ rutas.get('/',(req , res)=>{
     })
     //metodo para eliminar
 }).post('/eliminar', (req, res)=>{
-    persona.remove({Cedula: req.body.Cedula},(req,res)=>{
+    persona.remove({Nombre: req.body.Nombre},(req,res)=>{
         if(err){
             console.error(err)
             throw err;
@@ -38,11 +41,14 @@ rutas.get('/',(req , res)=>{
         //metodo de editar
     }).post('/editar',(req, res)=>{
         var body = req.body;
-        persona.update({Cedula: body.Cedula},
+        persona.update({Nombre: body.Nombre,},
             {
                 $set:{
-                    Contrasena:body.Contrasena,
-                    
+                    Apellido: body.Apellido,
+                    Cedula: body.Cedula,
+                    Edad: body.Edad,
+                    Telefono:body.Telefono,
+                    Direccion: body.Direccion,   
                 }
             },(err,rest)=>{
                 if(err){
@@ -53,18 +59,11 @@ rutas.get('/',(req , res)=>{
             })
 
     })
-}).post('/Login', (req,res )=>{
-    const {Cedula,Contrasena}=req.body;
-    persona.find({
-        Cedula:Cedula,
-        Contrasena:Contrasena
-    },(err, docs)=>{
-        if(err){
-            console.error(err)
-            throw err;
-        }
-        res.status(200).json(docs);
-    }) 
+}).post('/mostar', async(req , res)=>{
+    const Usuarios = await usuario.find({})
+     
+    Usuarios
 })
+
 
 module.exports= rutas;
