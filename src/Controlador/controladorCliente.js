@@ -1,69 +1,49 @@
 //doy dos puntos par salir de carpeta e ingresar a otra 
-var usuario= require('../models/cliente'),
+var persona= require('../models/Estudiante'),
     express = require('express'),
     rutas= express.Router();
 
     //creo rutas atraves de metodos get y post
-rutas.get('/',(req , res)=>{
-    usuario.find({},(err, docs)=>{
-        if(err){
-            console.error(err)
-            throw err;
+    rutas.post('/crearPersona',(req,res)=>{
+        
+        const  {dni,names,email,phone,direccion,genero}=  req.body
+    
+        persona.insertMany({dni,names,email,phone,direccion,genero},
+            (err,resp)=>{
+            if(err){
+                throw err;
+    
+            }else{
+                res.status(200).json(resp);
+            }
+        });
+    }).post('/editarPersona',(req,res)=>{
+        const {dni,names,email,phone,direccion,genero}=  req.body
+        persona.updateOne({_id:_id},{$set:{
+            dni,names,email,phone,direccion,genero
+        }}),(err,resp)=>{
+            if(err){
+                throw err;
+    
+            }else{
+                res.status(200).json(resp);
+            }
         }
-        res.status(200).json(docs);
+    }).post('/eliminarPersona',(req,res)=>{
+    
+        const { _id } =req.body
+    
+        persona.remove({_id:_id},)
+    }).get('/todos',(req,res)=>{
+        persona.find({},(err,resp)=>{
+            if(err){
+                throw err;
+    
+            }else{
+                res.status(200).json(resp);
+            }
+        })
+    
     })
-
-}).post('/crear',(req , res)=>{
-    var body= req.body;
-    usuario.insertMany({
-        //inserto los datos a bd
-        Nombre: body.Nombre,
-        Apellido: body.Apellido,
-        Cedula: body.Cedula,
-        Edad: body.Edad,
-        Telefono: body.Telefono,
-        Direccion: body.Direccion,
-    },(err,rest)=>{
-        if(err){
-            console.error(err)
-            throw err;
-        }
-        res.status(200).json(rest)
-    })
-    //metodo para eliminar
-}).post('/eliminar', (req, res)=>{
-    persona.remove({Nombre: req.body.Nombre},(req,res)=>{
-        if(err){
-            console.error(err)
-            throw err;
-        }
-        res.status(200).json(docs)
-        //metodo de editar
-    }).post('/editar',(req, res)=>{
-        var body = req.body;
-        persona.update({Nombre: body.Nombre,},
-            {
-                $set:{
-                    Apellido: body.Apellido,
-                    Cedula: body.Cedula,
-                    Edad: body.Edad,
-                    Telefono:body.Telefono,
-                    Direccion: body.Direccion,   
-                }
-            },(err,rest)=>{
-                if(err){
-                    console.error(err)
-                    throw err;
-                }
-                res.status(200).json(rest)
-            })
-
-    })
-}).post('/mostar', async(req , res)=>{
-    const Usuarios = await usuario.find({})
-     
-    Usuarios
-})
-
-
-module.exports= rutas;
+    
+    module.exports=rutas
